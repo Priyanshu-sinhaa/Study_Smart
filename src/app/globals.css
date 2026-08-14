@@ -2,25 +2,143 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1c1c1e;
+  --canvas-bg: #f4f5f7;
+  --panel-bg: #ffffff;
+  --panel-border: #e0e2e8;
+  --text-primary: #1c1c1e;
+  --text-secondary: #555a6a;
+  --text-tertiary: #8e91a0;
+  --node-border: #c7cad5;
+  --edge-color: #a5a8b5;
+  --grid-color: #e0e2e8;
+  --glow-color: rgba(66, 98, 255, 0.1);
+  --selection-bg: rgba(66, 98, 255, 0.2);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --background: #050b14;
+  --foreground: #f3f4f6;
+  --canvas-bg: #030712;
+  --panel-bg: rgba(10, 15, 30, 0.75);
+  --panel-border: rgba(0, 240, 255, 0.2);
+  --text-primary: #f3f4f6;
+  --text-secondary: #9ca3af;
+  --text-tertiary: #6b7280;
+  --node-border: rgba(255, 0, 127, 0.3);
+  --edge-color: rgba(0, 240, 255, 0.3);
+  --grid-color: rgba(255, 255, 255, 0.05);
+  --glow-color: rgba(0, 240, 255, 0.2);
+  --selection-bg: rgba(255, 0, 127, 0.3);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-miro-yellow: #ffd02f;
+  --color-miro-yellow-light: #fff4c4;
+  --color-miro-yellow-dark: #746019;
+  --color-miro-blue: #4262ff;
+  --color-miro-rose: #fde0f0;
+  --color-miro-teal: #c3faf5;
+  --color-miro-coral: #ffc6c6;
+
+  --color-cyber-cyan: #00f0ff;
+  --color-cyber-magenta: #ff007f;
+  --color-cyber-yellow: #ffea00;
+  --color-cyber-green: #39ff14;
+  
+  --shadow-neon-cyan: 0 0 15px rgba(0, 240, 255, 0.5);
+  --shadow-neon-magenta: 0 0 15px rgba(255, 0, 127, 0.5);
+  --shadow-neon-yellow: 0 0 15px rgba(255, 234, 0, 0.5);
+  
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  
+  --font-handwritten: var(--font-handwritten), cursive;
+  --font-sans: var(--font-sans), sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+input, button, select, textarea {
+  font-family: var(--font-sans), sans-serif;
+}
+
+.handwritten {
+  font-family: var(--font-handwritten), cursive;
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+
+/* Glassmorphism custom classes */
+.glass-panel {
+  background: var(--panel-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--panel-border);
+}
+
+.dark .glass-panel {
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Custom selection styling */
+::selection {
+  background-color: var(--selection-bg);
+  color: inherit;
+}
+
+/* Highlighted concepts styling */
+.highlight-concept {
+  border-bottom: 2px dashed #4262ff;
+  padding-bottom: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.highlight-concept:hover {
+  background-color: rgba(66, 98, 255, 0.1);
+  color: #4262ff;
+}
+
+.dark .highlight-concept {
+  border-bottom: 2px dashed #00f0ff;
+}
+.dark .highlight-concept:hover {
+  background-color: rgba(0, 240, 255, 0.15);
+  color: #00f0ff;
+  text-shadow: 0 0 8px #00f0ff;
+}
+
+/* Drag node preview style */
+.react-flow__node {
+  cursor: grab;
+}
+.react-flow__node:active {
+  cursor: grabbing;
+}
+
+/* Custom Scrollbar for code blocks & sidebars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--panel-border);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* Ensure code elements keep clean monospace typography */
+.font-mono, .font-mono * {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
 }
